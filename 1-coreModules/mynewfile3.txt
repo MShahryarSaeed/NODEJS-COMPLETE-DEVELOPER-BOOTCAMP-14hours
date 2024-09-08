@@ -1,1 +1,2 @@
 Hello World
+This is additional text appended to the file.

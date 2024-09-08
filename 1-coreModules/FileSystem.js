@@ -1,8 +1,9 @@
-// The fs module in Node.js provides an API for interacting with the file system. It allows you to perform various operations such as reading from and writing to files, creating directories, deleting files, and getting information about files and directories.
+// The fs module allows you to interact with the file system (reading, writing, updating, and deleting files).
 
 const fs = require("fs"); //Builtin module of Node js
 
 // 1-Writing to a File
+
 /*
 fs.writeFile("mynewfile3.txt", "Hello World", (error) => {
   if (error) throw error;
@@ -11,6 +12,7 @@ fs.writeFile("mynewfile3.txt", "Hello World", (error) => {
 */
 
 // 2-Reading from a File (Asynchronous file reading)
+
 /*
 fs.readFile('mynewfile3.txt', 'utf8', (err, data) => {
   if (err) {
@@ -42,6 +44,8 @@ fs.appendFile('mynewfile3.txt', additionalContent, 'utf8', (err) => {
 */
 
 // Asynchronous file/directory information
+
+/*
 fs.stat('mynewfile3.txt', (err, stats) => {
     if (err) {
       console.error('Error getting file/directory information:', err);
@@ -49,3 +53,5 @@ fs.stat('mynewfile3.txt', (err, stats) => {
     }
     console.log('File/directory information:', stats);
   });
+*/
+  
