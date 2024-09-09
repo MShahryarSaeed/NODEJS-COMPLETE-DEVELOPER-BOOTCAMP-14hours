@@ -233,8 +233,6 @@ const purchaseEbook = async (req, res, next) => {
         const download_url = `http://localhost:3000/api/ebooks/download/${accessToken}`;
 
         res.status(200).json({
-
-
             status: "Success",
             message: "Ebook Purchased Successfully",
             download_url: download_url
@@ -242,7 +240,9 @@ const purchaseEbook = async (req, res, next) => {
 
 
     } catch (error) {
+
         next(error);
+        
     }
 
 }

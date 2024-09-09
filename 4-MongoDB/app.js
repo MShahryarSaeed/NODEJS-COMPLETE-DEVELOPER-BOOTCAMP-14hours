@@ -33,12 +33,14 @@ app.use(cookieParser());
 
 // Log each incoming request method and URL
 app.use((req, res, next) => {
+
     console.log(`Incoming ${req.method} to URL: ${req.url}`);
+
     next();
 });
 
 // Make the 'uploads' directory accessible and verify the user
-app.use('/uploads', verifyUser, express.static('uploads'));
+app.use('/uploads', verifyUser, express.static('uploads'));  // http://localhost:3000/uploads/0a10e0f9-4099-48de-bae9-a8c964c6ef7f_REPORT PDF.pdf
 
 // Import models
 require("./models/post.model");
