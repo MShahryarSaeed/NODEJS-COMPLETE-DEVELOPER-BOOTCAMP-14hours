@@ -91,7 +91,7 @@ const updateEbook = async (req, res, next) => {
 
         });
 
-        filename = req.file.filename; //new filename varibale contain the new filename which user upadted by requesting 
+        filename = req.file.filename; //new:filename varibale contain the new filename which user upadted by requesting 
     }
 
 
@@ -228,11 +228,7 @@ const purchaseEbook = async (req, res, next) => {
         }
 
 
-        const accessToken = jsonwebtoken.sign(
-            { ebookId: ebook._id, userId: req.user._id },
-            process.env.SECRET,
-            { expiresIn: "1d" }
-        );
+        const accessToken = jsonwebtoken.sign( { ebookId: ebook._id, userId: req.user._id }, process.env.SECRET, { expiresIn: "1d" });
 
         const download_url = `http://localhost:3000/api/ebooks/download/${accessToken}`;
 
@@ -285,4 +281,4 @@ const DownloadEbook = async (req, res, next) => {
 }
 
 
-module.exports = { createEbook, updateEbook, allEbooks, GetSingleEbook, DeleteEbook, purchaseEbook, DownloadEbook };
+module.exports = { createEbook , updateEbook, allEbooks, GetSingleEbook, DeleteEbook, purchaseEbook, DownloadEbook };

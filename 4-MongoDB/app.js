@@ -1,62 +1,62 @@
-require("express-async-errors");
-require("dotenv").config();
-const fs=require("fs");
+require("express-async-errors"); // Automatically handles async errors in routes
+require("dotenv").config(); // Loads environment variables from a .env file
+const fs = require("fs");
 const express = require("express");
 const cookieParser = require("cookie-parser");
-const postRoutes = require("./routes/post.routes");
-const commentRoutes = require("./routes/comment.routes");
-const errorHandler = require("./handlers/errorHandler");
-const userRoutes = require("./routes/user.routes");
-const NotFoundError = require("./common/errors/NotFoundError");
-const verifyUser = require("./middlewares/verifyUser");
-const ebookRoutes = require("./routes/ebook.routes");
-const helmet=require("helmet");
-const compression=require("compression");
-const morgan=require("morgan");
+const postRoutes = require("./routes/post.routes"); // Routes for posts
+const commentRoutes = require("./routes/comment.routes"); // Routes for comments
+const errorHandler = require("./handlers/errorHandler"); // Global error handler
+const userRoutes = require("./routes/user.routes"); // Routes for user authentication
+const NotFoundError = require("./common/errors/NotFoundError"); // Custom 404 error
+const verifyUser = require("./middlewares/verifyUser"); // Middleware to verify user authentication
+const ebookRoutes = require("./routes/ebook.routes"); // Routes for ebooks
+const helmet = require("helmet"); // Adds security headers to HTTP responses
+const compression = require("compression"); // Compresses responses to improve performance
+const morgan = require("morgan"); // Logs incoming requests
 
 const app = express();
-// Middlewares
+
+// Apply security headers
 app.use(helmet());
+// Apply response compression
 app.use(compression());
-const accessLogStream=fs.createWriteStream(__dirname+'/access.log',{flags:'a'});
-app.use(morgan('combined',{stream:accessLogStream}));
+
+// Log requests to access.log
+const accessLogStream = fs.createWriteStream(__dirname + '/access.log', { flags: 'a' });
+app.use(morgan('combined', { stream: accessLogStream }));
+
+// Parse incoming JSON requests
 app.use(express.json());
-app.use(cookieParser())
+
+// Parse cookies from incoming requests
+app.use(cookieParser());
+
+// Log each incoming request method and URL
 app.use((req, res, next) => {
-
-    console.log(`Incomming ${req.method} to URL : ${req.url}`);
-
+    console.log(`Incoming ${req.method} to URL: ${req.url}`);
     next();
 });
 
-// To make our upload folder accessbile 
+// Make the 'uploads' directory accessible and verify the user
 app.use('/uploads', verifyUser, express.static('uploads'));
 
-
-
-
-// Models
+// Import models
 require("./models/post.model");
 require("./models/comment.model");
 require("./models/user.model");
 
-// Routes
-app.use("/api/auth", userRoutes);
-app.use("/api/posts", postRoutes);
-app.use("/api/comments", commentRoutes);
-app.use("/api/ebooks", ebookRoutes);
+// Define API routes
+app.use("/api/auth", userRoutes); // User authentication routes
+app.use("/api/posts", postRoutes); // Post routes
+app.use("/api/comments", commentRoutes); // Comment routes
+app.use("/api/ebooks", ebookRoutes); // Ebook routes
 
+// Handle undefined routes (404 error)
 app.all("*", (req, res, next) => {
-    next(new NotFoundError()); // Pass the error to the error-handling middleware(errorHandler)
-})
+    next(new NotFoundError()); // Trigger the errorHandler with a 404 error
+});
 
-// errorHandler
+// Global error handler middleware
 app.use(errorHandler);
 
-
-
-
-// res.cookie('accessToken', accessToken, { httpOnly: true, secure: true, sameSite: 'strict' })
-
 module.exports = app;
-

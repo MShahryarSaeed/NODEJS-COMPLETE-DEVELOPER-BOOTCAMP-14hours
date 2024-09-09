@@ -6,6 +6,8 @@ const verifyUser = require("../middlewares/verifyUser");
 
 const userRoutes = express.Router();
 
+
+// Array
 const validators = [
 
     check('email')

@@ -38,6 +38,7 @@ const SignUp = async (req, res, next) => {
 
 //SignIn Controller
 const SignIn = async (req, res, next) => {
+  
   const { email, password } = req.body;
 
   if (!email) throw new BadRequestError("Email is Required");

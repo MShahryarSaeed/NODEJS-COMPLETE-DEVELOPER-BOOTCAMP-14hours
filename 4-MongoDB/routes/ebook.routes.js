@@ -20,7 +20,6 @@ const validators = [
                 throw new Error('Ebook Title Already Exists');
             }
 
-
             return true;
         }),
 
