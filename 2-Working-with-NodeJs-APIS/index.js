@@ -48,6 +48,7 @@ server.on('request', (req, res) => {
         res.setHeader('Content-Type', 'text/html');
 
         res.end(`
+            <h1>Home Page</h1>
             <form action="/products" method="POST">
                 <input type="text" name="productName"/>
                 <button type="submit">POST Request</button>
@@ -93,62 +94,3 @@ server.on('request', (req, res) => {
 // Server initialization
 server.listen(3000, () => console.log(`Server is Listening on http://localhost:3000`));
 
-
-
-
-//1- How to Handle GET Request
-
-/*
-
-server.on('request',(req,res)=>{
-
-    res.setHeader('Content-Type','text/html');
-
-    if(req.method==='GET'){
-        // res.writeHead(200,{'Content-Type':'text/plain'})  //Another method to setHeaders
-
-        res.statusCode=200;
-        res.end(`Hello World <p style="color:green">200 OK</p>`);
-    }else{
-        res.statusCode=405;
-        res.end("Method not Allowed")
-    }
-})
-*/
-
-// JSON.stringify() is used to convert a JavaScript object into a JSON string.
-// JSON.parse() is used to parse a JSON string and convert it into a JavaScript object.
-
-// 2- How to Handle GET Request on specific url and how to retun json String because the res.end method wills send sting type date
-
-/*
-
-server.on('request', (req, res) => {
-
-
-    const products = [{ name: "Apple" }, { name: "banana" }, { name: "Date" }]
-
-    if (req.url === '/products') {
-
-        if (req.method === 'GET') {
-            // res.writeHead(200,{'Content-Type':'text/plain'})  //Another method to setHeaders
-            res.setHeader('Content-Type', 'application/json');
-
-            res.statusCode = 200;
-            res.end(JSON.stringify(products));
-
-        } else {
-
-            res.setHeader('Content-Type', 'text/plain');
-            res.statusCode = 405;
-            res.end("Method not Allowed")
-        }
-    } else {
-
-        res.setHeader('Content-Type', 'text/plain');
-        res.statusCode = 404;
-        res.end("Page Not Found");
-    }
-
-})
-*/
