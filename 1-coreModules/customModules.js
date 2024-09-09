@@ -6,6 +6,7 @@ const messageLogger=(message)=>{
 
         if(error){
             console.log("Error occured :",error.message,"/n");
+            return;
         }else{
             console.log("Message Logged :",message,"/n");
         }
