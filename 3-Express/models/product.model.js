@@ -17,11 +17,15 @@ module.exports = class Product {
         return new Promise((resolve, reject) => {
             // Read the product database file
             fs.readFile(pathToDatabase, 'utf-8', (error, data) => {
+
                 if (error) {
+
                     reject(error.message);
                     return;
+
                 } else {
-                    // Parse the JSON data  from the database file
+
+                    // Parse the JSON data  from the database file (Now in Array of  objects form)
                     const productData = JSON.parse(data);
                    
 
