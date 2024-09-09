@@ -17,12 +17,15 @@ function parse(req) {
 
         req.on('end', () => {
             try {
+                console.log(body); //productName=Banana
+                
                 resolve({ name: body.replace("productName=", "") }); //we receive the data as object and push in array which is also array of objects
+    
             } catch (error) {
                 reject(error);
             }
         });
-        
+
     });
 }
 
